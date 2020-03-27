@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
@@ -11,6 +12,8 @@ const ColorList = ({ colors, updateColors }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
   const [colorToAdd, setColorToAdd] = useState(initialColor);
+
+  const history = useHistory();
 
   const editColor = color => {
     setEditing(true);
@@ -50,6 +53,15 @@ const ColorList = ({ colors, updateColors }) => {
 
   return (
     <div className="colors-wrap">
+      <div className='button-row'>
+            <button 
+              type='button'
+              onClick={() => {
+                localStorage.removeItem('token');
+                history.push('/login');
+              }}
+            >Logout</button>
+        </div>
       <p>colors</p>
       <ul>
         {colors.map(color => (

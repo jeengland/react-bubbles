@@ -2,23 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Pack } from "@potion/layout";
 import { Svg, Rect } from "@potion/element";
 
-const Bubbles = ({ colors }) => {
-  const [bubbleData, setBubbleData] = useState([]);
+const Squares = ({ colors }) => {
+  const [squareData, setSquareData] = useState([]);
   useEffect(() => {
-    const generateBubbleData = colors.map((_, i) => ({
+    const generateSquareData = colors.map((_, i) => ({
       value: Math.floor(Math.random() * (colors.length * 2)) + 1,
       key: `${i + 1}`
     }));
-    setBubbleData(generateBubbleData);
+    setSquareData(generateSquareData);
   }, [colors]);
 
   return (
-    <div className="bubble-wrap">
+    <div className="square-wrap">
       <p>squares</p>
       <Svg width={400} height={400}>
         <Pack
           data={{
-            children: bubbleData
+            children: squareData
           }}
           sum={datum => datum.value}
           size={[400, 400]}
@@ -51,4 +51,4 @@ const Bubbles = ({ colors }) => {
   );
 };
 
-export default Bubbles;
+export default Squares;

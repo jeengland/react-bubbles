@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import Bubbles from "./Bubbles";
+import Squares from "./Squares";
 import ColorList from "./ColorList";
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-const BubblePage = () => {
+const SquarePage = () => {
   const [colorList, setColorList] = useState([]);
   const [updated, setUpdated] = useState(true);
   // fetch your colors data from the server when the component mounts
@@ -22,9 +22,9 @@ const BubblePage = () => {
   return (
     <>
       <ColorList colors={colorList} updateColors={setUpdated} />
-      <Bubbles colors={colorList} />
+      <Squares colors={colorList} />
     </>
   );
 };
 
-export default BubblePage;
+export default SquarePage;
