@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const [login, setLogin] = useState({username: '', password: ''});
   const [error, setError] = useState('');
+  const history = useHistory();
   const handleChange = (event) => {
     setLogin({
         ...login,
@@ -15,9 +17,9 @@ const Login = () => {
     axiosWithAuth()
         .post('/api/login', login)
         .then((response) => {
-            console.log(response);
             localStorage.setItem('token', response.data.payload);
             setError('');
+            history.push('/bubbles');
         })
         .catch((error) => setError(error.response.data.error));
     setLogin({username: '', password: ''});
