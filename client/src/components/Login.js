@@ -19,21 +19,19 @@ const Login = () => {
         .then((response) => {
             localStorage.setItem('token', response.data.payload);
             setError('');
-            history.push('/bubbles');
+            history.push('/squares');
         })
         .catch((error) => setError(error.response.data.error));
     setLogin({username: '', password: ''});
   }
   return (
     <form onSubmit={handleSubmit}>
-        <div className='formRow'>
-            <label htmlFor='username'>Username:</label>
+        <label htmlFor='username'>username:&nbsp;
             <input type='text' id='username' name='username' value={login.username} onChange={handleChange}/>
-        </div>
-        <div className='formRow'>
-            <label htmlFor='password'>Password:</label>
+        </label>
+        <label htmlFor='password'>password:
             <input type='password' id='password' name='password' value={login.password} onChange={handleChange}/>
-        </div>
+        </label>
         <button type='submit'>Login</button>
         {error ? <p className='error'>{error}</p> : undefined }
     </form>

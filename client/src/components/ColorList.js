@@ -10,6 +10,7 @@ const initialColor = {
 const ColorList = ({ colors, updateColors }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [colorToAdd, setColorToAdd] = useState(initialColor);
 
   const editColor = color => {
     setEditing(true);
@@ -33,6 +34,18 @@ const ColorList = ({ colors, updateColors }) => {
       .delete(`api/colors/${color.id}`)
       .then(updateColors(true))
       .catch((error) => console.error(error))
+  };
+
+  const saveAdd = e => {
+    e.preventDefault();
+    // Make a put request to save your updated color
+    // think about where will you get the id from...
+    // where is is saved right now?
+    axiosWithAuth()
+      .post('api/colors/', colorToAdd)
+      .then(updateColors(true))
+      .catch((error) => console.error(error));
+    setColorToAdd(initialColor);
   };
 
   return (
@@ -88,8 +101,39 @@ const ColorList = ({ colors, updateColors }) => {
           </div>
         </form>
       )}
+      {!editing && (
+        <form onSubmit={saveAdd}>
+          <legend>add color</legend>
+          <label htmlFor='addColorName'>color name:
+            <input
+              id='addColorName'
+              onChange={(event) => {
+                setColorToAdd({
+                  ...colorToAdd,
+                  color: event.target.value
+                })
+              }}
+              value={colorToAdd.color}
+            />
+          </label>
+          <label>
+            hex code:
+            <input
+              onChange={e =>
+                setColorToAdd({
+                  ...colorToAdd,
+                  code: { hex: e.target.value }
+                })
+              }
+              value={colorToAdd.code.hex}
+            />
+          </label>
+          <div className="button-row">
+            <button type="submit">save</button>
+          </div>
+        </form>
+      )}
       <div className="spacer" />
-      {/* stretch - build another form here to add a color */}
     </div>
   );
 };
