@@ -32,7 +32,9 @@ const Login = () => {
         <label htmlFor='password'>password:
             <input type='password' id='password' name='password' value={login.password} onChange={handleChange}/>
         </label>
-        <button type='submit'>Login</button>
+        <div className='button-row'>
+            <button type='submit'>Login</button>
+        </div>
         {error ? <p className='error'>{error}</p> : undefined }
     </form>
 );
